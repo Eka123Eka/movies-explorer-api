@@ -4,7 +4,7 @@ const { regexUrlValidation } = require('./regexes');
 // users
 const validCreateUser = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().required().min(2).max(30),
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
@@ -12,9 +12,8 @@ const validCreateUser = celebrate({
 
 const validUpdateUser = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().required().min(2).max(30),
     email: Joi.string().required().email(),
-    password: Joi.string().required(),
   }),
 });
 
@@ -36,7 +35,6 @@ const validSetLikeMovies = celebrate({
     image: Joi.string().required().regex(regexUrlValidation),
     trailerLink: Joi.string().required().regex(regexUrlValidation),
     thumbnail: Joi.string().required().regex(regexUrlValidation),
-    owner: Joi.string().alphanum().length(24).hex(),
     movieId: Joi.number().integer().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),

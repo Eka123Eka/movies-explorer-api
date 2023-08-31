@@ -64,6 +64,8 @@ const updateUser = (req, res, next) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError(`${messageWrongUpdateData}
             ${Object.values(err.errors).map((e) => e.message).join(', ')}`));
+      } else if (err.code === 11000) {
+        next(new ConflictError(`${email} ${messageExistEmail}`));
       } else { next(err); }
     });
 };
